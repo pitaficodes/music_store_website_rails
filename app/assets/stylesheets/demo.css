@@ -1,0 +1,303 @@
+/* CSS reset */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+    font-family: myriad-pro;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+input {
+    border: 1px solid #b0b0b0;
+    padding: 3px 5px 4px;
+    color: #979797;
+    width: 190px;
+}
+
+address, caption, cite, code, dfn, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+/* General Demo Style */
+body {
+    font-family: myriad-pro;
+    background: #000;
+    font-weight: 400;
+    font-size: 15px;
+    color: #aa3e03;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.ie7 body {
+    overflow: hidden;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+}
+
+.clr {
+    clear: both;
+}
+
+.container > header {
+    padding: 30px 30px 10px 20px;
+    margin: 0px 20px 10px 20px;
+    position: relative;
+    display: block;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.container > header h1 {
+
+    font-size: 26px;
+    text-align: left;
+    line-height: 35px;
+    position: relative;
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    padding: 0px 0px 5px 0px;
+
+}
+
+.container > header h1 span {
+
+}
+
+.container > header h2, p.info {
+    font-size: 16px;
+    font-style: italic;
+    color: #f8f8f8;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* Header Style */
+.codrops-top {
+    font-family: myriad-pro;
+    font-weight: bold;
+    font-size: 17px;
+    width: 100%;
+    background-image: url("navbar.png");
+    background-repeat: repeat-x;
+    opacity: 2.9;
+    /*text-transform: uppercase;*/
+    z-index: 0;
+    position: relative;
+    -moz-box-shadow: 1px 0px 0px #000;
+
+}
+
+.codrops-top a {
+    padding: 0px 10px;
+    letter-spacing: 1px;
+    color: #fff;
+    display: block;
+    float: left;
+}
+
+.codrops-top a:hover {
+    color: #fff;
+}
+
+.codrops-top span.right {
+    float: right;
+    margin-right: 60px;
+}
+
+.codrops-top span.right a {
+    float: none;
+    display: inline;
+    font-family: myriad-pro;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+p.codrops-demos {
+    display: block;
+    padding: 0px 0px;
+}
+
+p.codrops-demos a,
+p.codrops-demos a.current-demo,
+p.codrops-demos a.current-demo:hover {
+    display: inline-block;
+    border: 1px solid #4fc035;
+    padding: 4px 10px 3px;
+    font-size: 13px;
+    line-height: 18px;
+    margin: 2px 3px;
+    font-weight: 800;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #4fc035;
+    background: -moz-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2da212), color-stop(44%, #2da212), color-stop(100%, #2da212));
+    background: -webkit-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: -o-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: -ms-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    behavior: url(/assets/PIE.htc);
+}
+
+p.codrops-demos a:hover {
+    background: #2da212;
+}
+
+p.codrops-demos a:active {
+    background: #2da212;
+    background: -moz-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2da212), color-stop(44%, #2da212), color-stop(100%, #2da212));
+    background: -webkit-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: -o-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: -ms-linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    background: linear-gradient(top, #4cbd32 0%, #40b325 44%, #2da212 100%);
+    -webkit-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    -moz-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+p.codrops-demos a.current-demo,
+p.codrops-demos a.current-demo:hover {
+    color: #A5727D;
+    background: #6d0019;
+
+}
+
+.midboxpio {
+    width: 26%;
+    margin: auto;
+    background-image: url("1px_black.png");
+    padding: 14px;
+    -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+            border-radius: 8px;
+    behavior: url(/assets/PIE.htc);
+}
+
+.midboxtext {
+    color: #4CA5FF;
+    text-align: left;
+    font-family: myriad-pro;
+}
+
+.brandname {
+    font-size: 26px;
+    font-style: italic;
+    text-align: right;
+    color: #fff;
+    float: right;
+    margin-right: 289px;
+    margin-top: -20px;
+    font-family: myriad-pro;
+}
+
+/* Media Queries */
+@media screen and (max-width: 767px) {
+    .brandname {
+        display: none;
+    }
+
+    .container > header {
+        text-align: center;
+    }
+
+    p.codrops-demos {
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+
+    .the_lang {
+        display: none;
+    }
+
+    .midboxpio {
+        width: 40% !important;
+        margin: auto;
+        background-image: url("1px_black.png");
+        padding: 14px;
+        -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+                border-radius: 8px;
+        behavior: url(/assets/PIE.htc);
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .midboxpio {
+        width: 30% !important;
+        margin: auto;
+        background-image: url("1px_black.png");
+        padding: 14px;
+        -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+                border-radius: 8px;
+        behavior: url(/assets/PIE.htc);
+    }
+}
+
+.coninner {
+    text-align: left !important;
+}
+
+.social_links a {
+    padding: 0px !important;
+}
+
+a.socials-icons:hover,a.socials-icons:focus, a.socials-icons:hover img{
+    color: #ffffff !important;
+    text-decoration: blink !important;
+    border-bottom: none;
+}
+
+a#sin:hover {
+    text-decoration: none;
+}

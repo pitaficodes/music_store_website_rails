@@ -1,0 +1,227 @@
+
+/*==========================================================================================
+	
+This file contains styles related to the color scheme of the template
+
+==========================================================================================*/
+
+/*--------------------------------------------------------
+	1.COMMONS
+--------------------------------------------------------*/
+
+body{
+	/*font-size               : 12px;
+	line-height             : 1;
+	font-family             : 'Cabin', sans-serif; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+	font-weight				: normal;
+	color                   : #FFFFFF;
+	-webkit-font-smoothing  : antialiased;
+	-webkit-text-size-adjust: 100%;
+	background              : #FFFFFF url("/assets/1.jpg") no-repeat fixed center center;
+	background-size         : cover;
+	min-height              : 100%;
+	cursor                  : default;
+}
+
+
+
+.tile{
+	/*background: url("../assets/tile.png") repeat;*/
+	width     : 100%;
+	height    : 100%;
+	display   : block;
+	overflow  : hidden;
+	position  : fixed;
+	top       : 0;
+	left      : 0;
+	z-index   : -5;
+}
+
+a{
+	color          : #FFFFFF;
+	text-decoration: none;
+}
+
+a:hover{
+	color          : #E47C14;
+	text-decoration: none;
+}
+
+/*--------------------------------------------------------
+	2.STRUCTURAL 
+--------------------------------------------------------*/	
+
+	/*----------------------------
+	i.-- Header
+	-----------------------------*/
+
+	.logo{
+		
+		width: 175px;
+height: 90px;
+padding-top: 6px;
+	}
+	
+	ul#countdown{
+		margin            : 50px 0px 30px 0px;
+		padding-left      : 20px;
+		background        : #333333;
+		-webkit-box-shadow: 0px 0px 5px #000;
+		-moz-box-shadow   : 0px 0px 5px #000;
+		box-shadow        : 0px 0px 5px #000;
+	}
+	
+	ul#countdown li{
+		text-align : center;
+	  	font-family:  myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+	  	line-height: 1;
+		color      : #FFFFFF;
+		text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	}
+	
+	.box{
+		background: none;
+	}
+	
+	.seperator {
+		height    : 25px;
+		width     : 100%;
+		background: url(../assets/sep-dark.png) repeat;
+		margin-top: 5px;
+	}
+
+	.header-sep h4 {
+		/*background    : rgba(0,0,0, 0.0);*/
+		
+		padding       : 20px 10px 20px 10px;
+		font-family   :  myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+		font-weight	  : lighter;
+		letter-spacing: 1px;
+		-webkit-border-radius: 8px;
+		background-image:url(../assets/1px_black.png);
+		line-height: 32px;
+        behavior: url(/assets/PIE.htc);
+	}
+	
+	/*----------------------------
+	ii.-- Content
+	-----------------------------*/
+	
+	.d-holder, .icon-holder{
+		background             : #333333;
+		border                 : 10px solid #FFF !important; /*ie8 fallback*/
+		border                 : 10px solid rgba(255,255,255, 0.3) !important;
+		-moz-background-clip   : padding;    
+		-webkit-background-clip: padding;  
+		background-clip        : padding-box; 
+	}
+	
+	.diamond-front h2 {
+		font-family: myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+		font-size  : 35px;
+		font-weight: 600;
+	}
+	
+	.about {
+		font-family:  myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+		font-size  : 12px;
+		line-height: 1.5;
+	}
+	
+	.icon-holder{
+		border: 5px solid #FFF !important; /*ie8 fallback*/
+		border: 5px solid rgba(255,255,255, 0.3) !important;
+	}
+	
+	.signup-2 .submit{
+		background: #E47C14;
+	}
+	
+	.signup h4 {
+		font-family   : myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+		font-weight   : 400;
+		letter-spacing: 1px;   
+		color         : #E47C14;
+	}
+	
+	.back-title{
+		border-bottom : 1px solid #fff;
+		font-size     : 18px;
+		font-family   :  myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+		font-weight   : 400;
+		letter-spacing: 1px;
+	}
+	
+	.twitter a{
+		background: url("../assets/twitter.png") no-repeat  center center ;
+	}
+	.facebook a{
+		background: url("../assets/facebook.png") no-repeat  center center ;
+	}
+	.rss a{
+		background: url("../assets/rss.png") no-repeat  center center ;
+	}
+	.pinterest a{
+		background: url("../assets/pinterest.png") no-repeat  center center ;
+	}
+	.linkedin a{
+		background: url("../assets/linkedin.png") no-repeat  center center ;
+	}
+	
+	.left-section h2 {
+		font-family   :  myriad-pro; /* This theme uses Google Web Fonts. To change this font, go to http://www.google.com/webfonts/ and follow the instructions there. */
+		font-size     : 24px; 
+		text-transform: uppercase;
+	}
+
+/*--------------------------------------------------------
+	3.Media Queries
+--------------------------------------------------------*/
+
+@media (min-width: 1200px){
+	.d-holder{
+		border: 15px solid #FFF !important;
+		border: 15px solid rgba(255,255,255, 0.3) !important;
+	}
+	
+	.about {
+		font-size: 13px;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+	
+}
+
+@media (max-width: 767px) {
+	
+	ul#countdown {
+		padding-top: 20px;
+	}
+	
+	ul#countdown li{
+		margin-right : 20px; 
+		margin-bottom: 20px;
+	} 
+	
+}
+
+/***** Developer Css ******/
+
+.table th{
+    background: #999;
+    color: #fff;
+}
+
+.table tr{
+    background: #fff;
+    color: #999;
+}
+
+.table tr a{
+    color: #fff;
+
+}
+
+
+

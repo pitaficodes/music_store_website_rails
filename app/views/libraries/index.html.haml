@@ -1,0 +1,101 @@
+- unless params[:search].blank?
+  = render partial: "pieces" , locals: { personal: "not-personal" }
+-else
+  / ------------------- inner --------------
+  .container-fluid.coninner
+    .row-fluid
+      .span2
+        %h5=t ".your_music"
+        .fav_his_margin
+          %h6
+            %a{:class=>"fav_his",:href =>personal_libraries_path(pg_heading: "Favorites")}
+              =t ".favorites"
+          %h6
+            %a{:class=>"fav_his",:href =>history_libraries_path(pg_heading: "History")}
+              =t ".history"
+        %h6{:style => ""}=t ".find_music_for"
+        = render partial: "list_of instruments"
+        -#=collection_select(:instrument, :instrument_id_eq, Instrument.all, :id, :title,{:include_blank => false, selected: params[:instrument_id].blank? ? user_last_inst_id : params[:instrument_id]},{:style=>"width:38%;-webkit-user-select: none; margin-bottom: 116px;", class: "collection-select" })
+      .span10{:style=>"margin-top:10px;"}
+        .search_brudcrum
+          %span{:style => "float:left;margin-top: -15px;"}
+            %h6{:style => "color:#4CA5FF;" ,:class=> "instrument-heading"}
+          %span(style = "float:right;" )
+
+
+            %form.navbar-search.pull-left
+              = form_for :search, url: pieces_path do |f|
+                = f.search_field :composer_first_name_or_composer_last_name_or_title_contains  ,placeholder:t(".search"), class:"searchbox"
+                = f.hidden_field :instruments_id_eq
+                -#= f.select :instruments_id_eq, [["", ""]] + Instrument.all.collect { |i| [i.title, i.id] }
+        %br
+        %br
+        %br
+        %h6.div_head_text.pg_head_color
+          - pg_heading = ""
+          - pg_heading = params[:pg_heading]
+          =pg_heading
+        .clr
+        .bs-docs-example{:style=>"margin-left:50px;"}
+          -if params[:search].nil?
+            - @libraries.each do|lib|
+              %span
+                %a{:href=>library_path(lib,:pg_heading=>lib.title+">"), class: "lib-title-show"}
+                  %img{:src => "/assets/drop_box.png"}/
+                =link_to lib.title , library_path(lib,:pg_heading=>lib.title+">"), class: "lib-title-show"
+              %hr.bs-docs-separator/
+          -else
+            %table.table.table-condensed{:border => "0", :style => " border:none;"}
+              %thead{:style => "background-color:#eeeeee;"}
+                %tr.pretty
+                  %th=t ".play"
+                  %th=t ".fav"
+                  %th=sortable"title"
+                  %th=t ".composer"
+                  %th=t ".last_played"
+              %tbody
+                - @search.each do |piece|
+                  %tr
+                    %td
+                      -#- default_file = AudioFile.find_default_piece(piece.piano_type_id,piece.key_id,piece.tuning_id)
+                      -#- unless default_file.blank?
+                      -#  %a( href= "#{load_piece_pieces_path(id: piece.id)}" url="#{default_file.first.try(:file)}" class="sounds" data-piece_id="#{piece.id}" data-remote=true )
+                      -#    %img{:src => "/assets/play.png"}/
+                      -#-else
+                      %a(href="#{load_piece_pieces_path(id: piece.id)}" url="#{piece.audio_files.first.file if piece.audio_files.first}" class="sounds" data-piece_id = "#{piece.id}" data-remote=true )
+                        %img{:src => "/assets/play.png"}/
+                    -if (UserPiece.find_piece_user(current_user.id , piece.id)[0].try(:is_favourite?))
+                      %td=link_to image_tag("/assets/star.png"), "#" , class: "remove_favourite make_favourite " , id: piece.id
+                    -else
+                      %td= link_to image_tag("/assets/grstar.png"), "#" , class: 'add_favourite make_favourite' , id: piece.id
+                    %td.piece_title
+                      = piece.title
+                    %td.piece_composer= piece.composer.try(:full_name)
+                    //= semantic_form_for
+                    // %td= check_box_tag dom_id(piece) , piece.id , (UserPiece.find_piece_user(current_user.id , piece.id)[0].try(:is_favourite?)) , :class => 'make_favourite'
+                    %td.last_played
+                      - if piece.user_pieces.count>0
+                        =piece.user_pieces.order("updated_at DESC").first.updated_at.strftime("%b %d %Y @ %I:%M %p")
+                      -else
+                        Not Played yet
+
+                      //= link_to piece.videourl, piece.videourl, target: "_blank"
+        .jplayer_div(style="opacity: 0;")
+          .jplayer_tbl
+          = render "/libraries/jplayer"
+          .span3
+            &nbsp;
+        .hidden
+          =image_tag("player/play_button_active.png")
+          =image_tag("player/play_button.png")
+          =image_tag("player/plus_button.png")
+          =image_tag("player/pouse_button.png")
+          =image_tag("player/pouse_button_active.png")
+          =image_tag("player/minus_button_active.png")
+          =image_tag("player/plus_button_active.png")
+          =image_tag("player/off.png")
+          =image_tag("player/on.png")
+    .library-refferal-code
+      = referral_logo if referral_logo
+  / -------------------End inner --------------
+

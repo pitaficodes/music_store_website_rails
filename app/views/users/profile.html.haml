@@ -1,0 +1,111 @@
+.container-fluid.coninner
+  .row-fluid
+    .span3
+      - if current_user
+        -if ((current_user.subscription) and !(current_user.subscription.credit_card_num.nil?))
+          - a = ((current_user.subscription.end_date).to_date - DateTime.now.to_date).to_i
+          -if a>=0
+            %span.tryfreep
+              %span{:style => " color:green; font-size:27px;"}
+                = a
+              Days
+            %br/
+            %span.tryfreep
+              are remaining of your subscription
+          -else
+            %span.tryfreep
+              Your subscription has expired. Please Subscribe again.
+            .tryfree1000
+              %span.tryfreeheading
+                %a{:href => pricing_info_index_path,:style=>"color:#fff;"}
+                  %img{:src => "/assets/subscribe.png"}>/
+                  Subscribe
+              %br/
+        -else
+          - a = ((current_user.created_at+7.days).to_date - DateTime.now.to_date).to_i
+          -if a>=0
+            %span.tryfreep
+              %span{:style => " color:green; font-size:27px;"}
+                = a
+              Days
+            %br/
+            %span.tryfreep
+              are remaining of your trial
+          -else
+            %span.tryfreep
+              Your trial has expired. Please subscribe with a plan.
+          .tryfree1000
+            %span.tryfreeheading
+              %a{:href => pricing_info_index_path,:style=>"color:#fff;"}
+                %img{:src => "/assets/subscribe.png"}>/
+                Subscribe
+            %br/
+      -else
+        .tryfree100(style="margin-top:20px;" )
+          %span.tryfreeheading
+            %a{"data-target" => "#myModal", "data-toggle" => "modal", :href => new_user_session_path, :id=>"switch",:style=>"color:#fff;"}
+              Try it free
+          %br/
+          %div.tryfreep No credit card required
+          %div.tryfreep Choose your plan later
+      %br
+      %span.the_lang{:style => " bottom:0px;"}
+        = referral_logo
+      %br
+    .span9
+      .all_pieces
+        %h1 Profile
+
+        =link_to "Edit",edit_user_registration_path
+
+      .span6
+        %table.table
+          %tr
+            %td
+              Name
+
+            %td
+              = @user.name
+          %tr
+            %td
+              EMAIL
+            %td
+              = @user.email
+
+          %tr
+            %td
+              Country
+            %td
+              =@user.try(:country)
+
+          %tr
+            %td
+              City
+
+            %td
+              =@user.try(:city)
+          %tr
+            %td
+              Gender
+
+            %td
+              =@user.try(:gender)
+          %tr
+            %td
+              PermanentAddress
+
+            %td
+              =@user.try(:address1)
+          %tr
+            %td
+              TemporaryAddress
+            %td
+              =@user.try(:address2)
+
+
+
+
+
+
+
+

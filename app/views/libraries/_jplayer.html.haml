@@ -1,0 +1,197 @@
+.player-notification
+#jquery_jplayer_1.jp-jplayer
+#jp_container_1.jp-audio( style = "display:none" )
+  .jp-type-single
+    .jp-gui.jp-interface
+      .jp-current-time
+      .jp-progress-slider
+      -#.jp-progress
+      -#  .jp-seek-bar
+      -#    .jp-play-bar
+      -#      %span
+      .jp-remainig-time
+    #player-load-bar(style="display:none" )
+    .player-adjustments-container
+      = simple_form_for :audio_file , url: find_audio_file_pieces_url , method: :get , remote: :true  do |f|
+        = f.input :piece_id , as: :hidden , label: false , input_html: { id: "piece_id" }
+        = f.input :user_id , as: :hidden ,  label:false , input_html: { value: current_user.id }
+        = f.input :loop_piece , as: :hidden ,  label:false , input_html: { value: false, id: "loop_piece" }
+        = f.input :loop_start , as: :hidden ,  label:false , input_html: { value: Time.now, id: "loop_start" }
+        = f.input :loop_end , as: :hidden ,  label:false , input_html: { value: Time.now, id: "loop_end" }
+        = f.input :current_index , as: :hidden ,  label:false , input_html: { value: true, id: "player_index" }
+        = f.input :volume , as: :hidden ,  label:false , input_html: { value: "50", id: "player_volume" }
+        .range-slider-container
+          #loop_start_time
+          #slider_range
+          #loop_start_time
+        -###################### Above 480 px Layout ############################
+        %table.player-adjustments
+          %tr
+            %td
+              =t "libraries.index.tune"
+            %td
+              =t "libraries.index.loop"
+            %td
+              =t "libraries.index.loop_delay"
+            %td
+              TEMPO (BPM)
+            - unless browser.tablet? || browser.mobile?
+              %td( rowspan="4" class = "volume_control" )
+                #vol_slider
+                %a( class="mute-off mute-volume" href="#" )
+          %tr
+            %td
+              - tuning_files = TuningFile.all.map { |tuning| {"tuning_file" => tuning.attributes.except("id","updated_at","created_at,file").merge!( "file" => tuning.file.url.safe_url ) } }
+              %a( data-toggle="modal" href = "#tuning_model" role = "button" data-tuning_files = "#{tuning_files.to_json}" id = "tuner" )
+                =image_tag "player/tune_button.png" , alt: "Tune"
+            %td
+              %a.jp-repeat(href = "javascript:;" tabindex = "1" title = "repeat" style="display:none" )
+              %a.jp-repeat-off(href = "javascript:;" tabindex = "1" title = "repeat" style="display:none")
+              %a( href = "#" class = "on-loop player-color" )ON
+              %a( href = "#" class = "off-loop player-color" style="display:none" )OFF
+            %td
+              %select( id = "player_delay" class = "cell-one change-piece_opt player-color" name="audio_file[loop_delay]")
+                %option{:value => 0} 0 sec
+                %option{:value => 2000} 2 sec
+                %option{:value => 5000} 5 sec
+                %option{:value => 10000} 10 sec
+              .arrow
+            %td
+              .select-up-down
+                .pull-left
+                  %a( href = "#" class = "minus-player"  )
+                .pull-left{:style=>"width:40%;"}
+                  %select( id = "tempo-id-collection" class="change-piece_opt player-color" name="audio_file[current_tempo]")
+                  .box-small-arrow
+                .pull-left
+                  %a( href = "#" class = "plus-player")
+          %tr
+            %td
+              A4 TUNING (Hz)
+            %td
+              TRANSPOSE (KEY)
+            %td
+              PIANO
+            %td
+              &nbsp
+          %tr
+            %td
+              %select( id = "tuning-id-collection" class = "tuning-id loop-delay cell-one change-piece_opt player-color" name="audio_file[current_tuning]")
+              .arrow
+            %td
+              .select-up-down-keys
+                .pull-left
+                  %a( href = "#" class = "minus-player"  )
+                .pull-left
+                  %select( id = "key-id-collection" class = "loop-delay change-piece_opt player-color" name="audio_file[current_key]")
+                  .key-small-arrow
+                .pull-left
+                  %a( href = "#" class = "plus-player"  )
+            %td
+              %div
+                %select( id = "piano_type-id-collection" class = "loop-delay cell-long change-piece_opt player-color" name="audio_file[current_piano_type]")
+                .larg-small-arrow
+            %td( align = "center" )
+              .player_controllers
+                .pull-left.loop-over
+                  %a( class = "repeat-toggle repeat-class-off" href="#" )
+                .pull-left.play-button
+                  %a.jp-play{:href => "javascript:;", :tabindex => "1"}=t "libraries.index.play"
+                  %a.jp-pause{:href => "javascript:;", :tabindex => "1"}=t "libraries.index.pause"
+        -###################### Above 480 px Layout ############################
+        -###################### Below 480 px Layout ############################
+        %table.player-adjustments
+          %tr
+            %td(width="40%")
+              =t "libraries.index.tune"
+            %td(width="60%")
+              =t "libraries.index.loop"
+          %tr
+            %td
+              - tuning_files = TuningFile.all.map { |tuning| {"tuning_file" => tuning.attributes.except("id","updated_at","created_at,file").merge!( "file" => tuning.file ) } }
+              %a( data-toggle="modal" href = "#tuning_model" role = "button" data-tuning_files = "#{tuning_files.to_json}" id = "tuner" )
+                =image_tag "player/tune_iphone.png" , alt: "Tune"
+            %td
+              %a.jp-repeat(href = "javascript:;" tabindex = "1" title = "repeat" style="display:none" )
+              %a.jp-repeat-off(href = "javascript:;" tabindex = "1" title = "repeat" style="display:none")
+              %a( href = "#" class = "on-loop player-color" )ON
+              %a( href = "#" class = "off-loop player-color" style="display:none" )OFF
+          %tr
+            %td
+              =t "libraries.index.loop_delay"
+            %td
+              TEMPO (BPM)
+          %tr
+            %td
+              %select( id = "player_delay" class = "cell-one change-piece_opt player-color" name="audio_file[loop_delay]")
+                %option{:value => 0} 0 sec
+                %option{:value => 2000} 2 sec
+                %option{:value => 5000} 5 sec
+                %option{:value => 10000} 10 sec
+            %td
+              .select-up-down
+                .pull-left
+                  %a( href = "#" class = "minus-player"  )
+                .pull-left
+                  %select( id = "tempo-id-collection" class="change-piece_opt player-color" name="audio_file[current_tempo]" )
+                .pull-left
+                  %a( href = "#" class = "plus-player")
+          %tr
+            %td
+              A4 TUNING (Hz)
+            %td
+              TRANSPOSE (KEY)
+          %tr
+            %td
+              %select( id = "tuning-id-collection" class = "loop-delay cell-one change-piece_opt player-color" name="audio_file[current_tuning]")
+            %td
+              .select-up-down-keys
+                .pull-left
+                  %a( href = "#" class = "minus-player"  )
+                .pull-left
+                  %select( id = "key-id-collection" class = "loop-delay change-piece_opt player-color" name="audio_file[current_key]")
+                .pull-left
+                  %a( href = "#" class = "plus-player"  )
+          %tr
+            %td
+              PIANO
+            %td
+              &nbsp
+          %tr
+            %td
+              %select( id = "piano_type-id-collection" class = "loop-delay cell-long change-piece_opt player-color" name="audio_file[current_piano_type]")
+            %td( align = "center" )
+              .player_controllers
+                .pull-left.loop-over
+                  %a( class = "repeat-class" href="#" )
+                .pull-left.play-button
+                  %a.jp-play{:href => "javascript:;", :tabindex => "1"}=t "libraries.index.play"
+                  %a.jp-pause{:href => "javascript:;", :tabindex => "1"}=t "libraries.index.pause"
+          -#%tr
+          -#  %td( colspan = "2" class = "volume_control" )
+          -#    #vol_slider
+          -#    %a( class="mute-off mute-volume" href="#" )
+
+        -###################### Below 480 px Layout ############################
+    .jp-no-solution
+      %span=t "libraries.index.update_required"
+      = succeed "." do
+        %a{:href => "http://get.adobe.com/flashplayer/", :target => "_blank"} Flash plugin
+
+/ Modal
+#tuning_model.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  %a( class = "close_model" data-dismiss = "modal" href = "#" )
+  .modal-body
+    %h1
+      Tuner
+    %p
+      Click a button to tune that string
+    .pull-left
+      %ul
+        - %w[ E5 A4 D4 G3 ].each do |tune|
+          %li
+            %a( href="#" class="tune-player" data-str = '#{tune}' )
+              = image_tag "player/#{tune}.png"
+    .pull-left
+      .player-controllers
+        %a.pop_up_pause.pop-over-player-controller( href="#")

@@ -1,0 +1,210 @@
+!!!
+%html{:lang => "en"}
+  %head
+    / Example code to create a simple player using jPlayer 2.1.0
+    / Skins are defined in CSS. Uncomment the following CSS reference and comment out the one below it to switch skins
+    %link{:href => "http://jplayer.org/latest/skin/blue.monday/jplayer.blue.monday.css", :rel => "stylesheet", :type => "text/css"}/
+    / <link href="http://jplayer.org/latest/skin/pink.flag/jplayer.pink.flag.css" rel="stylesheet" type="text/css" />
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/jquery.jplayer.js", :type => "text/javascript"}
+
+  %body
+    %div{:style=>"display:none"}
+      %div
+        %a{:href=>"#.",:url=>"http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a",:class=>"sounds"}
+          Sound 1
+      %div
+        %a{:href=>"#.",:url=>"http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a",:class=>"sounds"}
+          Sound 2
+    #jquery_jplayer_1.jp-jplayer
+    #jp_container_1.jp-audio
+      .jp-type-single
+        .jp-gui.jp-interface
+          %ul.jp-controls
+            / comment out any of the following <li>s to remove these buttons
+            %li
+              %a.jp-play{:href => "javascript:;", :tabindex => "1"} play
+            %li
+              %a.jp-pause{:href => "javascript:;", :tabindex => "1"} pause
+            %li
+              %a.jp-stop{:href => "javascript:;", :tabindex => "1"} stop
+            %li
+              %a.jp-mute{:href => "javascript:;", :tabindex => "1", :title => "mute"} mute
+            %li
+              %a.jp-unmute{:href => "javascript:;", :tabindex => "1", :title => "unmute"} unmute
+            %li
+              %a.jp-volume-max{:href => "javascript:;", :tabindex => "1", :title => "max volume"} max volume
+          / you can comment out any of the following <div>s too
+          .jp-progress
+            .jp-seek-bar
+              .jp-play-bar
+          .jp-volume-bar
+            .jp-volume-bar-value
+          .jp-current-time
+          .jp-duration
+        .jp-title
+          %ul
+            %li Cro Magnon Man
+        .jp-no-solution
+          %span Update Required
+          To play the media you will need to either update your browser to a recent version or update your
+          = succeed "." do
+            %a{:href => "http://get.adobe.com/flashplayer/", :target => "_blank"} Flash plugin
+:javascript
+  //$(document).ready(function(){
+  //  var stream = {
+  //      title: "ABC Jazz",
+  //      rtmpa: "rtmp://s1gfcseo91o2n3.cloudfront.net/cfx/st/mp3:uploads/1-30-Guitar.mp3"
+  //  },
+  //  ready = false;
+  //  $("#jquery_jplayer_1").jPlayer({
+  //      ready: function (event) {
+  //          ready = true;
+  //          $(this).jPlayer("setMedia", stream);
+  //      },
+  //      pause: function() {
+  //          $(this).jPlayer("clearMedia");
+  //      },
+  //      error: function(event) {
+  //          if(ready && event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET) {
+  //              // Setup the media stream again and play it.
+  //              $(this).jPlayer("setMedia", stream).jPlayer("play");
+  //          }
+  //      },
+  //      swfPath: "/assets",
+  //      supplied: "rtmpa",
+  //      preload: "none",
+  //      wmode: "window"
+  //  });
+  //});
+  $(document).ready(function() {
+    pause=false;
+    stop = false;
+    f_pause= true;
+    soundurl = "http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a"
+    jplayer(soundurl);
+  });
+  $(".sounds").unbind("click");
+  $(".sounds").click(function(event){
+    //$("#jquery_jplayer_1").jPlayer("destroy");
+    soundurl = $(this).attr("url");
+    //jplayer(soundurl);
+    $("#jquery_jplayer_1").jPlayer("setMedia", {
+      m4a: soundurl
+    });
+    $("#jquery_jplayer_1").jPlayer("play");
+    event.preventDefault();
+    return false;
+  });
+  function jplayer(soundurl)
+  {
+    //isiPad =  ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPod/i)) ) != null;
+     soundurl = soundurl;
+     myurl = 'delibes_pizzicato.m4a';
+    var hasFlash = false;
+      try {
+        var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+        if(fo) hasFlash = true;
+      }catch(e){
+        if(navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) hasFlash = true;
+      }
+      if(hasFlash)
+      {
+          //server_url = 'rtmp://s1gfcseo91o2n3.cloudfront.net/cfx/st/';
+          //soundurl1 = 'mp4:uploads/'+myurl;
+          //soundurl1 = 'https://dtqu6el4d76w7.cloudfront.net/uploads/'+myurl;
+          //soundurl1 = 'rtmp://s1gfcseo91o2n3.cloudfront.net/cfx/st/mp4:uploads/delibes_pizzicato.m4a';
+          //soundurl1 ='rtmp://cp67126.edgefcs.net/ondemand/mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4';
+          //soundurl = 'mp4:uploads/'+myurl;
+          soundurl1= "rtmp://s1gfcseo91o2n3.cloudfront.net/cfx/st/mp4:uploads/delibes_pizzicato.m4a"
+      }
+      else
+      {
+          server_url = '';
+          soundurl1 = 'https://dtqu6el4d76w7.cloudfront.net/uploads/'+myurl;
+
+      }
+      //soundurl1 = "http://s3.amazonaws.com/audiojs/02-juicy-r.mp3";
+      //soundurl1 = soundurl;
+    $("#jquery_jplayer_1").jPlayer({
+      ready: function(event) {
+        //if (isiPad ==true) {
+        //playListInit(true);
+        //}
+        console.log("ready");
+        $(this).jPlayer("setMedia", {
+            //rtmpa:soundurl1
+            //http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a
+            m4a:"http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a"
+        }).jPlayer("play");
+        if( (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPad/i)) ) { $("#jquery_jplayer_1").jPlayer("pause");     f_pause= true; }
+      },
+      playing: function(event){
+        //console.log("palying");
+        //alert("ppp");
+      },
+      ended: function(event)
+      {
+        //alert("ended");
+        //console.log("ended");
+        stop = true;
+        //alert("ended");
+      },
+      loadstart: function(event)
+      {
+        //alert("loading start");
+      },
+      seeking: function(event){
+        //alert("seeking");
+      },
+      pause: function(event){
+        //console.log("pause");
+        //alert("pause");
+        if (f_pause == true)
+        {
+          pause = true;
+          f_pause = false;
+        }
+        else
+        {
+          pause = false;
+        }
+        if(pause == false)
+        {
+          $('#jquery_jplayer_1').jPlayer("play");
+        }
+      },
+      errorAlerts :true,
+      swfPath: "/assets",
+      supplied: "rtmpa, m4a",
+      solution:"flash,html",
+      wmode: "window",
+      preload: "auto"
+    });
+    if(($('#jquery_jplayer_1').data().jPlayer.status.ended == false)&&(stop==false)){
+      setInterval(function(){
+      if(($('#jquery_jplayer_1').data().jPlayer.status.paused == true) && (pause==false) && (stop==false) )
+      {
+        $('#jquery_jplayer_1').jPlayer("play");
+      }
+      },1000);
+    }
+  }
+  $(".jp-pause").click(function(event){
+    pause = true;
+    f_pause = true;
+    //alert("pause 2");
+    //event.preventDefault();
+  });
+  $(".jp-play").click(function(event){
+    pause = false;
+    stop = false;
+    //event.preventDefault();
+  });
+  $(".jp-stop").click(function(event){
+    stop = true;
+    f_pause = true;
+    console.log("stop1");
+    event.preventDefault();
+    return false;
+  });

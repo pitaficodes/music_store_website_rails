@@ -1,0 +1,168 @@
+.container-fluid.coninner
+  .row-fluid
+    .span2
+      %h5=t "libraries.index.your_music"
+      - favourite_active= ""
+      - favourite_active = "active_link" if params[:pg_heading]=='Favorites'
+      - history_active= ""
+      - history_active = "active_link" if params[:pg_heading]=='History'
+      .fav_his_margin
+        %h6(class ="#{favourite_active}")
+
+          %a{:class=>"fav_his_inner",:href =>personal_libraries_path(pg_heading: "Favorites")}
+            =t "libraries.index.favorites"
+        %h6{:class=>"#{history_active}"}
+          %a{:class=>"fav_his_inner",:href =>history_libraries_path(pg_heading: "History")}
+            =t "libraries.index.history"
+      %h6{:style => ""}=t "libraries.index.find_music_for"
+      = render partial: "list_of instruments"
+      -#=collection_select(:instrument, :instrument_id_eq, Instrument.all, :id, :title, {:include_blank => false, selected: params[:instrument_id]},{:style=>"width:38%; margin-bottom: 116px;", class: "collection-select-inner"})
+    .span10{:style=>"margin-top:10px;"}
+      %span{:style => "float:left;margin-top: -8px;"}
+        %span#fetchurl{style:"display:none;"}
+          = library_path(params[:id],:pg_heading=>params[:pg_heading], :instrument_id=>params[:instrument_id]) if params[:id]
+            - if params[:pg_heading]=='Favorites'
+              = personal_libraries_path(pg_heading: "Favorites")
+            - else if params[:pg_heading]=='History'
+              = history_libraries_path(pg_heading: "History")
+        %h6.div_head_text.pg_head_color
+
+
+          - pg_heading = ""
+          - pg_heading ="Favorites"  if params[:action]=="personal"
+          -pg_heading ="History "  if params[:action]=="history"
+          -if params["action"] == 'show'
+            -if params[:instrument_id]== ""
+              %span
+                = link_to "Libraries > ", libraries_path
+                %span#p_title
+                  = set_breadcrumb
+            -else
+              %span(style="#{ "color:#000" if params[:search].blank? }" )
+                = link_to set_breadcrumb.split(">")[0] + ">", "/#{I18n.locale}/libraries?in_search=in_search?&instrument_id=#{params[:instrument_id]}" if params[:search].blank?
+                = set_breadcrumb.split(">")[0] unless params[:search].blank?
+              %span#p_title
+                = set_breadcrumb.split(">")[1] if params[:search].blank?
+          -elsif params["side"]
+            = set_breadcrumb.split(">")[0]
+          -elsif params["action"] == 'index'
+            %span#p_title Search
+          -else
+            %span#p_title
+              =pg_heading
+        .clr
+      -if params["action"] == 'show' || params["action"] == 'index'
+        %span{:style => "float:right", :id => "search_box"}
+          %form.navbar-search.pull-left
+            = form_for :search, url: pieces_path do |f|
+              = f.search_field :composer_first_name_or_composer_last_name_or_title_contains  ,placeholder:t("libraries.index.search"), class:"searchbox"
+              = f.hidden_field :instruments_id_eq
+              -if !params[:search].nil?
+                = link_to image_tag("/assets/cross_small.png"), libraries_path, class:"search_cross"
+              -#= f.select :instruments_id_eq, [["", ""]] + Instrument.all.collect { |i| [i.title, i.id] }
+      %br
+      %br
+      %br
+      .bs-docs-example
+        %table#myTable.table.table-condensed{:border => "0", :style => " border:none;"}
+          %thead{:style => "background-color:#eeeeee;"}
+            %tr.pretty
+              %th=t "libraries.index.play"
+              %th=t "libraries.index.fav"
+              %th=t "libraries.index.title"
+              %th=t "libraries.index.composer"
+              %th=t "libraries.index.last_played"
+
+          %tbody
+            -if !params[:search].nil?
+              - @pieces =  @matching_pieces
+            - @pieces.each do |piece|
+              %tr
+                %td
+                  - default_file = AudioFile.find_piece_audio_file(piece.id,piece.tempo,piece.piano_type_id,piece.key_id,piece.tuning_id)
+                  - default_file = default_file[0].attributes.merge!("file" => ( default_file[0].file.url.safe_url rescue "") ) unless default_file.blank?
+                  - current_user_piece = UserPiece.find_piece_user( current_user.id ,piece.id )[0]
+                  - keys = Key.pluck(:title)
+                  - ind = keys.rindex(piece.key.title)
+                  - keys_array = Array.new
+                  - 6.times{ ind = 0 if ind == 12; keys_array.push(keys[ind]); ind = ind + 1;  }
+                  - if keys.rindex(keys_array.last) < 12 && keys.rindex(keys_array.last) > 6
+                    - last_index = keys.rindex(keys_array.last)
+                    - inverse_keys = Array.new
+                    - (12-last_index).times{ |x| logger.debug inverse_keys.push(keys[last_index+x]) }
+                    - keys = keys - inverse_keys
+                    - keys = inverse_keys + keys
+                  - keys = keys - keys_array
+                  - keys = keys + keys_array
+                  - keys = keys & piece.audio_files.collect{ |a| Key.find(a.key_id).title}
+                  - unless current_user_piece.blank?
+                    - piece_history = current_user_piece.attributes.except("user_id","id","updated_at","created_at","last_played")
+                  - audio_files = piece.audio_files.map { |audio| {"audio_file" => audio.attributes.extract!("tempo").merge!("key_title" => audio.key.title, "key_id" => audio.key.id , "piano_type_id" => audio.piano_type.id , "piano_type_title" => audio.piano_type.title , "piano_type_id" => audio.piano_type.id, "tuning_id" => audio.tuning.id , "tuning_title" => audio.tuning.tuning , "file" => (audio.file.url.safe_url rescue "") )}}
+                  %a(href = "/pieces/load_piece?id=#{piece.id}" data-default_file = "#{default_file.try(:to_json)}" data-audio_files = "#{audio_files.try(:to_json)}"  class = "player-play sounds" data-piece_id="#{piece.id}" data-current_piece = "#{piece_history.try(:to_json) }" data-remote = "true" data-keys = "#{keys.collect { |key| [Key.find_by_title(key).id , key]   }.to_json}" )
+                    %img{:src => "/assets/play.png"}/
+                -if (UserPiece.find_piece_user(current_user.id , piece.id)[0].try(:is_favourite?))
+                  %td=link_to image_tag("/assets/star.png"), "#" , class: "remove_favourite make_favourite #{personal}" , id: piece.id
+                -else
+                  %td= link_to image_tag("/assets/grstar.png"), "#" , class: 'add_favourite make_favourite' , id: piece.id
+                %td.piece_title
+                  = piece.title
+                %td.piece_composer= piece.composer.try(:full_name)
+                //= semantic_form_for
+                // %td= check_box_tag dom_id(piece) , piece.id , (UserPiece.find_piece_user(current_user.id , piece.id)[0].try(:is_favourite?)) , :class => 'make_favourite'
+                %td.last_played
+                  - if piece.user_pieces.count>0
+                    = time_zone_localiztion piece.user_pieces.order("updated_at DESC").first.updated_at
+                  -else
+                    Not Played yet
+      .hidden
+        =image_tag("player/play_button_active.png")
+        =image_tag("player/play_button.png")
+        =image_tag("player/plus_button.png")
+        =image_tag("player/pouse_button.png")
+        =image_tag("player/pouse_button_active.png")
+        =image_tag("player/minus_button_active.png")
+        =image_tag("player/plus_button_active.png")
+        =image_tag("player/off.png")
+        =image_tag("player/on.png")
+      .piece_request_div
+        Looking for music that is not currently featured in the library? Click
+        = link_to "here", "#pieceModal","data-toggle" => "modal",:style=>"text-decoration:underline;",:class=>"piece_popup_link"
+
+      #pieceModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "pieceModalLabel", :role => "dialog", :tabindex => "-1", :style=>"top:15%;"}
+        .modal-header{:style=>"border-bottom:none"}
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"}
+            %img{:src => "/assets/cross.png"}/
+        .modal-body
+
+          .request-div
+            .request-heading
+              Music Request
+            %p(style="color:#000;padding-left:32px;text-align:justify;" )
+              Didn't find what you need?
+              If there is music you would like to play
+              which is not in our current selection, please let us
+              know. Thank you.
+            %p(class="request_msg" style="color:#2DA212; padding-left:32px;" )
+            %span(style="color:#000" )
+              = form_tag piece_request_pieces_path ,:id=>"request_form", :remote=> true, :method=>"get" do
+                .request-container
+                  %ul
+                    %li.li-first
+                      = text_field_tag "title","",:placeholder => "Title", :id=> "p_title", :required=>true
+                      .clr
+                    %li
+                      = text_field_tag "composer","",:placeholder => "Composer" , :id=> "comp_id", :required=>true
+                      .clr
+                    %li.li-request
+                      = link_to image_tag("send.png"), "#", :class=>"submit_request"
+                      .clr
+      .jplayer_div(style="opacity: 0;")
+        .jplayer_div_link
+          .jplayer_tbl
+          = render "/libraries/jplayer"
+          .span3
+            &nbsp;
+      .libraries_path.hidden
+        = libraries_path
+  .library-refferal-code
+    = referral_logo if referral_logo

@@ -1,0 +1,13 @@
+$("#search_box").hide();
+$("#jp_container_1").show();
+console.log("loaded");
+var text = $.trim($('#p_title').text());
+var url = $.trim($('#fetchurl').html());
+$('#p_title').html('<a href="'+url+'">'+text+'</a>');
+$('.jplayer_tbl').html("<%= escape_javascript(render(:partial => "load_piece_detail")) %>")
+
+var x;
+x = $("#page").offset().top - 100;
+jQuery("html,body").animate({
+    scrollTop: x
+}, 400);

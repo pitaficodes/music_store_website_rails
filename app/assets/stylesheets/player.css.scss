@@ -1,0 +1,846 @@
+div.jp-audio{
+  width: 740px;
+  height: 248px;
+}
+
+div.jp-audio, div.jp-audio-stream, div.jp-video{
+  background-image: url("player/main_bg.png");
+  background-color: transparent;
+  border: none;
+}
+
+div.jp-interface{
+  background-color: transparent;
+  top: 5px;
+  #load-bar{
+    color: #c16300;
+    height: 10px;
+  }
+  .jp-progress-slider{
+    float: left;
+    width: 83%;
+    margin-top: 16px;
+    margin-left: 2px;
+    height: 8px;
+    background: transparent;
+    background-color: #000;
+    border: none;
+
+    .ui-slider-handle{
+      background: url("player/handle.png") 100% 30% transparent no-repeat;
+      border: none;
+    }
+    .ui-slider-range{
+      border-radius: 5px;
+      background: transparent;
+      background-color: #c16300;
+      behavior: url(/assets/PIE.htc);
+    }
+  }
+
+}
+
+.player-adjustments{
+  .player-color{
+    color: #ff9323;
+  }
+  width: 710px;
+  margin: 8px 0px 0px 10px;
+  tr{
+    td{
+      text-align: center;
+      color: #fff;
+      font-family: myriad-pro;
+    }
+
+   .on-loop{
+      display: block;
+      margin: 0 auto;
+      background: url("player/on.png");
+      width: 81px;
+      height: 30px;
+      padding-right: 38px;
+      padding-top: 5px;
+      margin-top: -12px;
+   }
+
+  .off-loop{
+    display: block;
+    margin: 0 auto;
+    background: url("player/off.png");
+    width: 81px;
+    height: 30px;
+    padding-left: 38px;
+    padding-top: 5px;
+    margin-top: -12px;
+  }
+
+  }
+
+  .cell-one{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: url("player/cell-one.png");
+    width: 80px;
+    height: 30px;
+    line-height: 21px;
+    border: none;
+    margin-top: -4px;
+    &:focus{
+      outline: none !important;
+    }
+  }
+
+  .cell-long{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: url("player/long-cell.png");
+    width: 122px;
+    height: 30px;
+    line-height: 21px;
+    border: none;
+    &:focus{
+      outline: none !important;
+    }
+  }
+
+  .repeat-toggle{
+    display: block;
+    width: 56px;
+    height: 75px;
+  }
+
+  .repeat-class-off{
+    background: url("player/loop.png") 100% 100% no-repeat;
+  }
+
+  .repeat-class-on{
+    background: url("player/loop.png") 100% -2% no-repeat;
+  }
+
+  .select-up-down{
+    width: 122px;
+    height: 30px;
+    background: url("player/cell-2.png") no-repeat ;
+    margin: 0 auto;
+    select{
+      background-color: transparent;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 30px;
+      border: none;
+      line-height: 21px;
+      border: none;
+      width: 50px;
+      padding-left: 0px;
+      &:focus{
+        outline: none !important;
+      }
+    }
+    .minus-player{
+      display: block;
+      background: url("player/minus_button.png") no-repeat;
+      width: 36px;
+      height: 30px;
+      &:hover{
+        background: url("player/minus_button_active.png");
+      }
+    }
+
+    .plus-player{
+      display: block;
+      background: url("player/plus_button.png")no-repeat;
+      width: 36px;
+      height: 30px;
+      &:hover{
+        background: url("player/plus_button_active.png");
+      }
+    }
+  }
+
+  .select-up-down-keys{
+    width: 140px;
+    height: 30px;
+    background: url("player/cell-2-key.png") no-repeat ;
+    margin: 0 auto;
+    select{
+      background-color: transparent;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 30px;
+      color: #ff9323;
+      border: none;
+      line-height: 21px;
+      border: none;
+      width: 68px;
+      padding-left: 0px;
+      &:focus{
+        outline: none !important;
+      }
+    }
+    .minus-player{
+      display: block;
+      background: url("player/minus_button.png") no-repeat;
+      width: 36px;
+      height: 30px;
+      &:hover{
+        background: url("player/minus_button_active.png");
+      }
+    }
+    .plus-player{
+      display: block;
+      background: url("player/plus_button.png")no-repeat;
+      width: 36px;
+      height: 30px;
+      &:hover{
+        background: url("player/plus_button_active.png");
+      }
+    }
+  }
+
+}
+
+
+.jp-video {
+  font-family: myriad-pro;
+  position:relative;
+
+  -webkit-box-shadow:0px 0px 20px rgba(0,0,0,.3);
+  -moz-box-shadow:0px 0px 20px rgba(0,0,0,.3);
+  box-shadow:0px 0px 20px rgba(0,0,0,.3);
+  background:#000;
+}
+.jp-video-360p {
+  width:570px;
+  margin: 100px auto;
+}
+.jp-video-full {
+  width:480px;
+  height:270px;
+  position:static !important;
+  position:relative;
+}
+.jp-video-full .jp-jplayer {
+  top: 0;
+  left: 0;
+  position: fixed !important; position: relative; /* Rules for IE6 (full-screen) */
+  overflow: hidden;
+  z-index:1000;
+}
+
+.jp-video-full .jp-gui {
+  position: fixed !important; position: static; /* Rules for IE6 (full-screen) */
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+  z-index:1000;
+}
+
+.jp-video-full .jp-interface {
+  position: absolute !important; position: relative; /* Rules for IE6 (full-screen) */
+  bottom: 0;
+  left: 0;
+  z-index:1000;
+}
+
+
+.jp-interface {
+  position: relative;
+  width:100%;
+  height: 35px;
+}
+
+div.jp-controls-holder {
+  clear: both;
+  width:570px;
+  margin: 0 auto;
+
+  position: relative;
+  overflow:hidden;
+}
+
+a.jp-play,
+a.jp-pause {
+  float:left;
+  text-indent:-9999px;
+  outline:none;
+}
+
+a.jp-play {
+  background: url("player/player_controllers.png") 10% 10.5% no-repeat;
+  width: 100px;
+  height: 95px;
+  &:hover{
+    background: url("player/player_controllers.png") 95% 10.5% no-repeat;
+  }
+}
+
+a.jp-pause{
+  background: url("player/player_controllers.png") 10% 92.5% no-repeat;
+  width: 100px;
+  height: 95px;
+  &:hover{
+    background: url("player/player_controllers.png") 95% 92.5% no-repeat;
+  }
+}
+
+#separator {
+  background-image:url(pl/separator.png);
+  background-repeat:no-repeat;
+  width: 2px;
+  height: 35px;
+  float:left;
+  margin-top: 7px;
+  margin-right: 10px;
+}
+
+.jp-progress {
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  -webkit-box-shadow:
+    inset 0px 1px 4px rgba(0,0,0,.4),
+    0px 1px 0px rgba(255,255,255,.4);
+  -moz-box-shadow:
+    inset 0px 1px 4px rgba(0,0,0,.4),
+    0px 1px 0px rgba(255,255,255,.4);
+  box-shadow:
+    inset 0px 1px 4px rgba(0,0,0,.4),
+    0px 1px 0px rgba(255,255,255,.4);
+  width:280px;
+  height:10px;
+  float:left;
+  margin-top: 13px;
+  behavior: url(/assets/PIE.htc);
+}
+
+.jp-seek-bar {
+  width:0px;
+  height:100%;
+  cursor: pointer;
+}
+
+.jp-seeking-bg {
+  background:#575555;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  behavior: url(/assets/PIE.htc);
+}
+
+.jp-play-bar {
+  background: url(player/play-bar.png) left repeat-x;
+  width:0px;
+  height:10px;
+  position:relative;
+  z-index: 9999;
+
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  behavior: url(/assets/PIE.htc);
+}
+
+.jp-play-bar span {
+  position:absolute;
+  top: -3px;
+  right: -12px;
+
+  background:url(player/handle.png) no-repeat center;
+  width: 16px;
+  height: 17px;
+}
+
+.jp-current-time,
+.jp-remainig-time {
+  font-size:11px;
+  font-family: myriad-pro;
+  color:#444444;
+  margin-top: 12px;
+  float:left;
+  font-style: normal !important;
+}
+.jp-current-time {
+  float: left;
+  display:inline;
+}
+.jp-remainig-time {
+  float: left;
+  display:inline;
+  text-align: right;
+}
+.jp-video .jp-current-time {
+  margin-left:10px;
+}
+.jp-video .jp-remainig-time {
+  margin-right:10px;
+}
+.time-sep {
+  float:left;
+  margin: 13px 3px 0 3px;
+
+  font-size:11px;
+  font-family: myriad-pro;
+  color:#444444;
+}
+
+
+.jp-video a.jp-mute,
+.jp-video a.jp-unmute {
+  text-indent:-9999px;
+  float:left;
+
+  height: 35px;
+  outline:none;
+}
+
+.jp-mute {
+  float:left;
+  background: url(pl/sprite.png) -80px 0 no-repeat;
+  margin-top: 1px;
+  margin-left: -10px;
+  width: 35px;
+}
+
+a.jp-unmute {
+  background: url(pl/sprite.png) -115px 0 no-repeat;
+  margin-top: 1px;
+  margin-left: -13px;
+  display: none;
+  width: 38px;
+}
+
+.jp-volume-bar {
+  float:left;
+  margin-top: 13px;
+  margin-right: 10px;
+  overflow:hidden;
+  width:70px;
+  height:10px;
+  cursor: pointer;
+
+  background: #706d6d;
+
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+
+  -webkit-box-shadow:
+    inset 0px 1px 4px rgba(0,0,0,.4),
+    0px 1px 0px rgba(255,255,255,.4);
+  -moz-box-shadow:
+    inset 0px 1px 4px rgba(0,0,0,.4),
+    0px 1px 0px rgba(255,255,255,.4);
+  box-shadow:
+    inset 0px 1px 4px rgba(0,0,0,.4),
+    0px 1px 0px rgba(255,255,255,.4);
+  behavior: url(/assets/PIE.htc);
+}
+
+.play-button{
+  margin-top: -36px;
+}
+
+.loop-over{
+  margin-top: -27px;
+}
+.volume_control{
+  .ui-slider-vertical{
+    border: none;
+    background: transparent;
+    background-color: #000;
+    border-radius: 7px;
+    height: 140px;
+    behavior: url(/assets/PIE.htc);
+  }
+
+  .ui-slider-vertical .ui-slider-handle{
+    background: url("player/volume_button.png") no-repeat;
+    border: none;
+    margin-left: -9px;
+    height: 34px;
+    width: 48px;
+  }
+
+  .ui-widget-header{
+    background: transparent;
+    background-color:  #c16300;
+    border-radius: 5px;
+    behavior: url(/assets/PIE.htc);
+  }
+  .mute-volume{
+    display: block;
+    width: 24px;
+    height: 23px;
+  }
+  .mute-off{
+    background: url("player/volume_button_icons.png") 50% 0% no-repeat;
+  }
+
+  .mute-on{
+    background: url("player/volume_button_icons.png") 50% 85% no-repeat;
+  }
+}
+.range-slider-container{
+  min-height: 14px;
+  #slider_range{
+    margin: 0px 59px;
+    margin-top: -1px;
+  }
+
+  .ui-widget-content{
+    background: transparent !important;
+    border: none !important;
+  }
+  .ui-slider-range{
+    background: transparent !important;
+    border: none !important;
+  }
+  .ui-slider-handle{
+    background: transparent;
+    border: none;
+    background: url("player/red.png") 40% 0% no-repeat;
+    width: 25px;
+    height: 42px;
+  }
+}
+
+.red-end-point{
+  background: url("player/green.png") 40% 0% no-repeat !important;
+  width: 25px;
+  height: 42px;
+}
+
+.player_controllers{
+  left: 20px;
+}
+
+#tuning_model{
+  z-index: 999999;
+  background: url("player/tuning_bg.png") no-repeat;
+  width: 410px;
+  height: 563px;
+  border-radius: 24px;
+  border: none;
+  overflow: hidden;
+  behavior: url(/assets/PIE.htc);
+  .close_model{
+    display: block;
+    background: url("player/cancel.png");
+    height: 43px;
+    width: 43px;
+    position: absolute;
+    right: 2px;
+    top: 10px;
+
+  }
+  .modal-body{
+    overflow: hidden;
+    margin-left: 35px;
+    margin-top: 55px;
+    max-height: 563px;
+    color: #fff;
+    h1{
+      color: #fff;
+      margin-left: 10px;
+    }
+    ul{
+      margin-top: 30px;
+      li{
+        margin-bottom: 10px;
+      }
+
+    }
+    .player-controllers{
+      margin-top: 125px;
+      margin-left: 25px;
+      .pop_up_play{
+        display: block;
+        background: url("player/play_stop_button.png") 0% 0% no-repeat;
+        width: 100px;
+        height: 130px;
+      }
+
+      .pop_up_pause{
+        display: block;
+        background: url("player/play_stop_button.png") 100% 0%  no-repeat;
+        width: 100px;
+        height: 130px;
+      }
+    }
+  }
+}
+
+//.modal-backdrop, .modal-backdrop.fade.in{
+//  z-index: 9999;
+//}
+/****************  Responsive layout Tablet Devices   *****************/
+@media (min-width: 590px) and (max-width: 900px){
+
+  .range-slider-container .ui-slider-handle{
+    background: url("player/red.png") 50% 0% no-repeat;
+  }
+
+  .red-end-point {
+    background: url("player/green.png") 6% 0% no-repeat !important;
+  }
+
+  div.jp-interface .jp-progress-slider{
+    width: 80%;
+  }
+
+  #player-load-bar{
+    width: 81.5% !important;
+  }
+
+  div.jp-audio{
+    width: 585px;
+    margin-left: 5px;
+    height: 230px;
+  }
+  div.jp-audio, div.jp-audio-stream, div.jp-video{
+    background: url("player/ipad-poteriate.png");
+  }
+
+  .player-adjustments{
+    width: 560px;
+
+    .repeat-class-off{
+      display: block;
+      width: 37px;
+      height: 49px;
+      background: url("player/ipad_loop_btn.png");
+      margin-top: 9px;
+    }
+
+    a.jp-play {
+      background: url("player/ipad_play_controlers.png") 0% 0% no-repeat;
+      width: 65px;
+      height: 63px;
+      &:hover{
+        background: url("player/ipad_play_controlers.png") 98% 0% no-repeat;
+      }
+    }
+
+    a.jp-pause{
+      background: url("player/ipad_play_controlers.png") 0% 96.5% no-repeat;
+      width: 65px;
+      height: 63px;
+      &:hover{
+        background: url("player/ipad_play_controlers.png") 98% 96.5% no-repeat;
+      }
+    }
+    .volume_control .ui-slider-vertical{
+      margin-left: 18px;
+    }
+    .mute-off{
+      margin-left: 18px;
+    }
+
+    .play-button{
+      margin-top: -25px;
+    }
+
+  }
+}
+/****************  Responsive layout Tablet Devices   *****************/
+/****************  Responsive layout Mobile Devices   *****************/
+@media (min-width: 300px) and (max-width: 500px){
+  .player_controllers{
+    left: 42px;
+  }
+
+  .range-slider-container .ui-slider-handle{
+    background: url("player/red.png") 65% 0% no-repeat;
+  }
+
+  .red-end-point {
+    background: url("player/green.png") 65% 0% no-repeat !important;
+  }
+
+  div.jp-interface .jp-progress-slider{
+    width: 66%;
+  }
+
+  #player-load-bar{
+    width: 64% !important;
+    margin-left: 20% !important;
+  }
+
+  div.jp-audio div.jp-type-single div.jp-progress{
+    width: 72%;
+    margin-left: 3%;
+  }
+
+  div.jp-audio{
+    width: 310px;
+    margin-left: 5px;
+    height: 500px;
+  }
+  div.jp-audio, div.jp-audio-stream, div.jp-video{
+    background: url("player/iphone-player-bg.png") no-repeat;
+  }
+  div.jp-duration{
+    margin-right: 5px;
+  }
+
+  .player-adjustments{
+    width: 310px;
+    .repeat-class{
+      display: block;
+      width: 37px;
+      height: 49px;
+      background: url("player/ipad_loop_btn.png");
+      margin-top: 9px;
+    }
+
+    a.jp-play {
+      background: url("player/ipad_play_controlers.png") 0% 0% no-repeat;
+      width: 65px;
+      height: 63px;
+      margin-top: 11px;
+      &:hover{
+        background: url("player/ipad_play_controlers.png") 98% 0% no-repeat;
+      }
+    }
+
+    a.jp-pause{
+      background: url("player/ipad_play_controlers.png") 0% 96.5% no-repeat;
+      width: 65px;
+      height: 63px;
+      margin-top: 11px;
+      &:hover{
+        background: url("player/ipad_play_controlers.png") 98% 96.5% no-repeat;
+      }
+    }
+    #vol_slider{
+      width: 83%;
+      margin-left: 6px;
+      background: transparent;
+      background-color: #000;
+      border: none;
+      .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+        background: url("player/vertical_volume_slider.png") transparent no-repeat;
+        width: 18px;
+        height: 30px;
+        border: none;
+        margin-top: -2px;
+      }
+    }
+  }
+
+  .range-slider-container{
+    min-height: 14px;
+    #slider_range{
+      margin: 0px 52px;
+      margin-top: -1px;
+    }
+  }
+
+  .volume_control .mute-volume{
+    margin-top: -20px;
+    margin-left: 272px;
+  }
+
+  #tuning_model{
+    background: url("player/tuner-3.png") transparent no-repeat;
+    width: 311px;
+    .modal-body{
+      margin-top: 15px;
+
+      ul{
+        margin-top: 15px;
+        li{
+          margin-bottom: 5px;
+        }
+      }
+
+      .player-controllers{
+        margin-top: 130px;
+        margin-left: 5px;
+      }
+
+    }
+  }
+}
+
+#player-load-bar{
+  width: 83%;
+  background-image: url("jplayer.blue.monday.seeking.gif");
+  height: 8px;
+  position: absolute;
+  top: 21px;
+  margin-left: 9%;
+  border-radius: 5px;
+  behavior: url(/assets/PIE.htc);
+}
+/****************  Responsive layout Mobile Devices   *****************/
+/******************** Arrow Solution ***************************/
+.arrow {
+  width: 16px;
+  height: 22px;
+  display: inline-block;
+  background: url("player/down_arrow.png") no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  margin-left: -25px;
+}
+
+.box-small-arrow {
+  width: 16px;
+  height: 22px;
+  background: url("player/down_arrow.png");
+  background-size: 100% 100%;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  pointer-events: none;
+}
+
+.key-small-arrow{
+  width: 16px;
+  height: 22px;
+  background: url("player/down_arrow.png");
+  background-size: 100% 100%;
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  pointer-events: none;
+}
+
+.larg-small-arrow{
+  width: 16px;
+  height: 22px;
+  background: url("player/down_arrow.png");
+  background-size: 100% 100%;
+  position: absolute;
+  right: 24px;
+  top: 4px;
+  pointer-events: none;
+}
+
+.arrow-ie-fix{
+  width: 20px !important;
+  background-color: #606060 !important;
+  margin-left: -29px !important;
+}
+
+.arrow-2-ie-fix{
+  width: 20px !important;
+  background-color: #606060 !important;
+  right: 23px !important;
+}
+
+
+
+
+
+
+
+
+

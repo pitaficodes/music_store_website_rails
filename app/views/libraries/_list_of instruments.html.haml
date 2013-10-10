@@ -1,0 +1,9 @@
+.btn-group
+  %button.btn.change-text.instrument_list
+  %button.btn.instrument_caret.dropdown-toggle.style-ins-drop-down{"data-toggle" => "dropdown"}
+    %span.caret
+  %ul.dropdown-menu
+    - Instrument.all.each do |ins|
+      %li
+        %a( href = "#" class = "instrument-drop-down-items" data-ins_id = "#{ins.id}" data-ins_text = "#{ins.title}"  )
+          = ins.title

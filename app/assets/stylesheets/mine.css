@@ -1,0 +1,238 @@
+body{
+    background: #ffffff;
+
+}
+.all_pieces a,h1{
+    color: #000000;
+}
+ul, ol, li, h1, h2, h3, h4, h5, h6, a, label, fieldset, th, td {
+    color: #000000;
+}
+.nav .dropdown-toggle .caret {
+    border-bottom-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    margin-top: 6px;
+}
+.nav .dropdown-toggle:hover .caret, .nav .dropdown-toggle:focus .caret {
+    border-bottom-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+
+}
+.btn-success {
+    background-color: #2DA212;
+    background-image: linear-gradient(to bottom, #2DA212, #2DA212);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);}
+.btn{
+    border: 1px solid #4FC035;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 18px;
+    margin: 2px 3px;
+    padding: 1px 10px 1px;
+    behavior: url(/assets/PIE.htc);
+}
+.backg{
+    color: #4CA5FF;
+
+}
+
+.collection-select{
+    color:#4CA5FF;
+    font-family:  myriad-pro;
+    background-image: url("dropdown.png") !important;
+    -moz-appearance: none;
+     outline: none;
+    -webkit-appearance: none;
+    filter: alpha(opacity=0);
+    border: 0px;
+
+
+}
+.collection-select-inner{
+    color:#4CA5FF;
+    font-family:  myriad-pro;
+    background-image: url("dropdown.png") !important;
+    -moz-appearance: none;
+    outline: none;
+    -webkit-appearance: none;
+    filter: alpha(opacity=0);
+    border: 0px;
+
+}
+.placeholder{
+    font-family: myriad-pro;
+
+}
+.button-family{
+    font-family:  myriad-pro;
+
+    font-weight: normal;
+}
+.footer-color
+{   font-family:myriad-pro;
+    color: #555555;
+}
+.footer-color a{
+    font-family: myriad-pro;
+    color: #000;
+}
+.footer-family{
+    font-family: myriad-pro;
+
+
+}
+.static{
+    padding-top: 10px;
+    height: 27px;
+}
+
+.green-heading{
+    font-size: 22px;
+    color: #379426;
+    font-weight: normal;;
+}
+.heading-top{
+    margin:0 0 20px 0;
+    line-height:20px;
+}
+.about-heading{
+    color:#666;
+    font-weight:normal
+
+}
+.aanker{
+    color:#0088cc;
+}
+.legal-context {
+    font-size: 14px;
+    line-height: 20px;
+    color: #000;
+}
+.legal-context a {
+    font-size: 14px;
+    line-height: 20px;
+    color:#0088cc;
+}
+.special{
+    height:30px;
+}
+
+.controls input[type=text]{
+    height:30px;
+    width: 222px !important;
+}
+.controls input[type=password]{
+    height:30px;
+    width: 222px !important;
+}
+.controls input[type=email]{
+    height:30px;
+    width: 222px !important;
+}
+.birthday_div select{
+    width: 72px !important;
+}
+.dates_div input[type=text]{
+    height:30px;
+    width: 65px !important;
+}
+.card_type_div select{
+ margin-left: 21px;
+}
+.user-registration-notify{
+ padding-left: 10px !important;
+ margin-top: 1px !important;
+}
+.legal-heading{
+    font-weight:bold;
+    font-size: 14px;
+    color:#000;
+}
+.about-aanker{
+    color:#0088cc;
+}
+
+/*custom*/
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-submenu:hover>a, .dropdown-submenu:focus>a {
+    background-color: #E3F2FF;
+    background-image: none;
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    text-decoration: none;
+
+}
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
+    background-color: #E3F2FF;
+    background-image: none;
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    text-decoration: none;
+
+}
+.nav .current a {
+    color: #fff;
+    border-radius: 0px;
+    text-decoration: none;
+    background-color: rgb(95, 95, 95);
+    padding: 31px 20px 31px 20px;
+    behavior: url(/assets/PIE.htc);
+}
+.nav .header_link a:hover {
+    color: #fff;
+    border-radius: 0px;
+    text-decoration: none;
+    background-color: rgb(95, 95, 95);
+    padding: 31px 20px 31px 20px;
+    behavior: url(/assets/PIE.htc);
+}
+
+.controls.sub_select_div{
+    margin-left: 19px;
+}
+.active_link_color{
+    color:#4CA5FF;;
+}
+.pretty th .current {
+    padding-right: 20px !important;
+    background-repeat: no-repeat !important;
+    background-position: right center !important;
+}
+.pretty th .asc {
+    background-image: url("up.png") !important;
+}
+
+.pretty th .desc {
+    background-image: url("down.png") !important;
+}
+.fav_his_margin{
+    padding:10px;
+    margin-right: 7px;
+    padding: 15px;
+}
+.choose_plan:hover{
+    text-decoration: none;
+}
+
+.change-color{
+    color: #000 !important;
+}
+
+.credit_card_div{
+    display: none;
+}
+.socials-icons:hover img{
+        border-bottom:  .1px solid #000;
+}
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'VegurRegular';
+    src: url('vegur-regular.eot');
+    src: url('vegur-regular.eot') format('embedded-opentype'),
+         url('vegur-regular.woff') format('woff'),
+         url('vegur-regular.ttf') format('truetype'),
+         url('vegur-regular.svg#VegurRegular') format('svg');
+}

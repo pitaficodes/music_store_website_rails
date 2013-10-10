@@ -1,0 +1,9 @@
+$(".ajax-spinner-modal").remove();
+$(".login-div").removeClass("lower-opacity");
+<% if @message=="success" %>
+  $(".signup-fields-container").html("<ul class='login-error-message'><li style='padding-top:14px;line-height: 14px;color:green'>An email has been sent to your email address. Please check your inbox.</li></ul>");
+  $("#user_email_email").hide()
+  $("#sign-up-submit").hide()
+<% else %>
+  $(".signup-fields-container").html("<ul class='login-error-message'><li style='padding-top:14px;line-height: 14px;color:red'>You are already registered.</li></ul>");
+<% end %>

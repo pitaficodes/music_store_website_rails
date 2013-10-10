@@ -1,0 +1,80 @@
+%table.table.table-condensed{:border => "1px",:style => "border:1px solid black"}
+  %thead{:style => "background-color:#eeeeee;"}
+    %tr
+      %th Title
+      %th Composer
+  %tbody
+    %tr
+      %td.playing_title
+        =@piece.title
+      %td.playing_composer
+        =@piece.composer.try(:full_name)
+.playing_details
+  .show_details
+    %span(style="color:#000;padding-right:4px;")
+      Show Details
+    %a(href="#." class="show_details_img" )
+      =image_tag("/assets/toggle_plus.png",:size => "18x18")
+  .hide_details(style="display:none")
+    %span(style="color:#000;padding-right:4px;")
+      Hide Details
+    %a(href="#." class="hide_details_img" )
+      =image_tag("/assets/toggle_minus.png",:size => "18x18")
+  %table.current_piece_detail(style="display:none")
+    %tbody.detail_table
+      %tr
+        %td
+          Favorite
+        %td
+          -if (UserPiece.find_piece_user(current_user.id , @piece.id)[0].try(:is_favourite?))
+            =image_tag("/assets/star.png")
+          -else
+            =image_tag("/assets/grstar.png")
+      %tr
+        %td
+          Genre(s)
+        %td
+          - lib_count=@piece.libraries.length
+          - loop_count = 0
+          -@piece.libraries.each do |l|
+            -loop_count = loop_count+1
+            =l.title
+            - unless loop_count>= lib_count
+              ,
+        %tr
+          %td
+            Last Played
+          %td
+            - if @piece.user_pieces.count>0
+              = time_zone_localiztion  @piece.user_pieces.order("updated_at DESC").first.updated_at
+            -else
+              Not Played yet
+      -unless @piece.professional_performance.blank?
+        %tr
+          %td
+            Master Performance
+          %td
+            %a(href="#{@piece.professional_performance}" target="_blank") Click here
+      -unless @piece.sheet_music.blank?
+        %tr
+          %td
+            Sheet Music
+          %td
+            %a(href="#{@piece.sheet_music}" target="_blank") Click here
+
+      -unless @piece.videourl.blank?
+        %tr
+          %td
+            Amigo Videos
+          %td
+            %a(href="#{@piece.videourl}" target="_blank") Click here
+      -unless @piece.tags.blank?
+        %tr
+          %td
+            Related Pieces
+          %td
+            - @piece.tags.each_with_index do |tag,index|
+              %a( href = "/en/libraries/#{tag.libraries.first.id}?related_piece=#{tag.id}")= tag.title
+              - unless index == @piece.tags.length - 1
+                ,
+            -#%a(href="#{@piece.videourl}") Click here

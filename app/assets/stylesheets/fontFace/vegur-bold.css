@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'VegurBold';
+    src: url('vegur-bold.eot');
+    src: url('vegur-bold.eot') format('embedded-opentype'),
+         url('vegur-bold.woff') format('woff'),
+         url('vegur-bold.ttf') format('truetype'),
+         url('vegur-bold.svg#VegurBold') format('svg');
+}

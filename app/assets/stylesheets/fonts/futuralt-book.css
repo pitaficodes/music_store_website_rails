@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'FuturaLTBook';
+    src: url('futuralt-book.eot');
+    src: url('futuralt-book.eot') format('embedded-opentype'),
+         url('futuralt-book.woff') format('woff'),
+         url('futuralt-book.ttf') format('truetype'),
+         url('futuralt-book.svg#FuturaLTBook') format('svg');
+}

@@ -1,0 +1,168 @@
+jQuery ->
+  container_height = $(document).height() - $(".navbar-inner").outerHeight()  - $(".footers").outerHeight() - 40
+  $(".container-fluid").last().css("min-height","#{container_height}px") unless $(".container-fluid").last().parents(".navbar-inner").length > 0
+  $(".make_favourite").click (e) ->
+    e.preventDefault()
+    $this = $(this)
+    if $this.hasClass('add_favourite')
+      #$this.text("Remove from favourite")
+      $this.find("img").remove()
+      $this.prepend "<img class=\"theImg\" src=\"/assets/star.png\" />"
+      $this.removeClass('add_favourite').addClass('remove_favourite')
+      # console.log "/libraries/#{@id}/enable_favourite"
+      $.getScript("/libraries/#{@id}/enable_favourite")
+    else
+      $this.find("img").remove()
+      $this.prepend "<img class=\"theImg\" src=\"/assets/grstar.png\" />"
+      #$this.text("Add to favourite")
+      $this.removeClass('remove_favourite').addClass('add_favourite')
+      $.getScript("/libraries/#{@id}/disable_favourite")
+      if $this.hasClass("personal")
+        #console.log $this.parents("tr")
+        $this.parents("tr").remove()
+      else
+        $this.find("img").remove()
+        $this.prepend "<img class=\"theImg\" src=\"/assets/grstar.png\" />"
+  $(".lib-title-show , .fav_his").live "click", (eventObject) ->
+    eventObject.preventDefault()
+    window.location = "#{@href}&instrument_id=#{$("#search_instruments_id_eq").val()}"
+  $(".fav_his_inner").live "click", (eventObject) ->
+    eventObject.preventDefault()
+    window.location = "#{@href}&instrument_id=#{$("#search_instruments_id_eq").val()}"
+  $(".submit_request").live "click", (event) ->
+    console.log("clicked")
+    #.loader-img
+    $("#request_form").submit()
+    #event.preventDefault()
+  $(".piece_popup_link").live "click", (event) ->
+    $(".request_msg").text("");
+    event.preventDefault()
+
+  $(".saap-link").live "click" , (event) ->
+      event.preventDefault()
+      $(".modal-body").load($(this).prop('href'))
+  $(".choose_plan").live "click", (event) ->
+    if($(this).hasClass("login"))
+      event.preventDefault()
+      $(".price_pop_up_link").click()
+  ############# Disable Auto Renwew ########
+  $(".en_dis_plan").live "click", (event) ->
+    event.preventDefault()
+    $("#sub_modal").modal()
+
+  $("#en_dis_sub").live "click" , (event) ->
+      $.getScript( $(this).data("path") )
+
+  $("#instrument_instrument_id_eq option").addClass("change-color")
+  $('.social_links').tooltip('show')
+
+  $(".show_credit_card_div").live "click", (event) ->
+    event.preventDefault()
+    $(".credit_card_div").show()
+    $("#subscription_card_number , #subscription_card_verification_value").prop("disabled",false)
+    $(this).remove()
+  ############################ History Maintance #######################
+  if $.cookie("ins") == undefined
+    diggity = $.trim($('[data-ins_id]').first().text())
+    val_ins = $('[data-ins_id]').first().data("ins_id")
+  else
+    diggity = $.trim($('[data-ins_id='+$.cookie("ins")+']').text())
+    val_ins = $.cookie("ins")
+  $(".change-text").text(diggity);
+  $(".instrument-heading").text("")
+  $(".instrument-heading").text(diggity).append(" >")
+  $("#search_instruments_id_eq").val(val_ins)
+  ########## Mantian the Cookie History ##################
+  $(".instrument-drop-down-items").live "click" ,(event)->
+      event.preventDefault()
+      $this = $(this)
+      value = $.trim($this.text())
+      id = $this.data("ins_id")
+      $(".change-text").text($this.text())
+      $(".instrument-heading").text("")
+      $(".instrument-heading").text(value).append(" >")
+      $.cookie("ins", id , { expires : 30 })
+      $("#search_instruments_id_eq").val(id)
+      window.location = "/en/libraries"
+  ############### Go to Library page ####################
+  $(".change-text").live "click" , (event) ->
+      window.location.href = "/en/libraries"
+
+  $("#sign-up-submit").live "click" , (event) ->
+    pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+    if pattern.test($("user_email_email").val())
+        $(".modal-body").prepend('<div class="ajax-spinner-modal"></div>')
+        $(".login-div").addClass("lower-opacity")
+
+  $("#change_password_profile").live "click" , (event) ->
+      event.preventDefault()
+      $("#change_password").removeClass("hide")
+      $(this).parents(".control-group").addClass("hide")
+
+  ############## Subscription Change Button ######################
+  $(".change_subscription").live "click" , (event) ->
+      event.preventDefault()
+      $(this).hide()
+      $("#subscription_plan").hide()
+      $(".select_box_change_subscription").prop("disabled",false).removeClass("hide")
+  ##################### Sorting Tables ############################
+  $("#myTable").tablesorter
+    sortList: [[2,0]]
+    headers:
+        0:
+            sorter: false
+        1:
+            sorter: false
+  $(document).ready ->
+    $('.dropdown-toggle').dropdown();
+
+  #################### Model Click Issues ########################
+  $("#switch").live "click" , (event) ->
+      window.switch_to_sigin_up = true
+
+  $(".instrument_list").addClass("instrument_black") unless $(".fav_his").length == 0
+
+  #################### CVC Tooltip ###############################
+  $(".cvc-popup").on "click" , (event) ->
+      event.preventDefault()
+      myWindow=window.open('','','width=500,height=584')
+      myWindow.document.write("<img src='#{ $(this).data('content') }' style='width:490px;' />")
+      myWindow.focus()
+
+  ################### Change Password ############################
+  $("#modal_password_profile").live "click" , (event) ->
+    event.preventDefault()
+    $("#pass_modal").modal()
+
+  ################## Force Fully Save The Password ##############
+  $(".submit-form-force").live "click" , (event) ->
+      event.preventDefault()
+      if $("#user_password").val() == "" or $("#user_password_confirmation").val() == "" or $("#user_current_password").val() == ""
+        $(".remote-errors").text("Please fill the blank fields.")
+        if $("#user_current_password").val() == ""
+          $("#user_current_password").trigger("focus")
+        else if $("#user_password").val() == ""
+          $("#user_password").trigger("focus")
+        else if $("#user_password").val() == ""
+          $("#user_password").trigger("focus")
+      else if $("#user_password").val() != $("#user_password_confirmation").val()
+          $(".remote-errors").text("Password and password confirmation does not match.")
+      else
+        $("#pass_modal").find("form").submit()
+
+  $("#pass_modal").on "hide" , (event) ->
+    $("#user_current_password").val("")
+    $("#user_password").val("")
+    $("#user_password_confirmation").val("")
+    $(".remote-errors").text("")
+
+  $("body").on "touchstart.dropdown", ".dropdown-menu", (e) ->
+    e.stopPropagation()
+
+  if(navigator.appName == 'Microsoft Internet Explorer')
+      $(".arrow , .box-small-arrow , .key-small-arrow").addClass("arrow-ie-fix");
+      $(".larg-small-arrow").addClass("arrow-2-ie-fix");
+window.onresize = ->
+    container_height = $(document).height() - $(".navbar-inner").outerHeight()  - $(".footers").outerHeight() - 40
+    $(".container-fluid").last().css("min-height","#{container_height}px") unless $(".container-fluid").last().parents(".navbar-inner").length > 0
+
